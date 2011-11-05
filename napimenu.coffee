@@ -13,7 +13,7 @@ lng = process.env.HUBOT_NETPINCER_LNG or 19.0621781
 radiusz = process.env.HUBOT_NETPINCER_RADIUS or 2
 
 
-@get_menu = (cb, params={lat, lng, radiusz, limit_offset:0, limit_max:10, etterem_neve:"", rendez:"tavolsag", page:"maps", out:"xml", type:"dailymenu"}) ->
+@get_menu = (cb, params={lat, lng, radiusz:2, limit_offset:0, limit_max:10, etterem_neve:"", rendez:"tavolsag", page:"maps", out:"xml", type:"dailymenu"}) ->
   options =
     host: "www.netpincer.hu"
     port: 80
@@ -42,8 +42,9 @@ get_menu_from_dom = (dom) ->
   full_menu = rows_we_need.map (row) ->
     columns = select(row, "td").filter (el, index, array) -> index % 2
 
-    #restaurant_name_w_junk = columns[0]
+    restaurant_name_w_junk = columns[0]
     restaurant_name = select(row, "a.etterem_neve")[0].children[0].data
+    restaurant_addy = select(restaurant_name_w_junk, "a")[1].children[0].data.replace("&nbsp;", " ")
     todays_menu_w_junk = select(columns[1], "a")
     #tomorrows_menu_w_junk = select(columns[2], "a") # but we don't care about that
 
@@ -55,7 +56,7 @@ get_menu_from_dom = (dom) ->
         if child.data.length > 4
           output_line += child.data
       return output_line
-    return {restaurant: restaurant_name, menus: menus}
+    return {restaurant: restaurant_name, address: restaurant_addy, menus: menus}
   return (full_menu)
 
 parse_netpincer = (body) ->

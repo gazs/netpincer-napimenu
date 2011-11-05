@@ -13,10 +13,6 @@
 
   },
 
-  "main": "./napimenu",
-
-  "bin": {
-    "hubot": "./bin/hubot"
-  }
+  "main": "./napimenu"
 
 }
