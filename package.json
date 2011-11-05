@@ -1,6 +1,6 @@
 {
   "name":        "netpincer-napimenu",
-  "version":     "0.0.1",
+  "version":     "0.0.2",
   "author":      "gazs",
   "keywords":    "netpincér",
   "description": "Queries daily lunch menus from netpincer.hu",

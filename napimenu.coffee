@@ -8,16 +8,15 @@ Iconv = require('iconv').Iconv
 
 iconv = new Iconv 'ISO-8859-2', 'UTF-8' 
 
-lat = process.env.HUBOT_NETPINCER_LAT or 47.5034905 
-lng = process.env.HUBOT_NETPINCER_LNG or 19.0621781
-radiusz = process.env.HUBOT_NETPINCER_RADIUS or 2
 
 
-@get_menu = (cb, params={lat, lng, radiusz:2, limit_offset:0, limit_max:10, etterem_neve:"", rendez:"tavolsag", page:"maps", out:"xml", type:"dailymenu"}) ->
+module.exports = (cb, lat, lng, radiusz=2, limit_offset=0, limit_max=10, etterem_neve="", rendez="tavolsag") ->
+  params={lat, lng, radiusz, limit_offset, limit_max, etterem_neve, rendez, page:"maps", out:"xml", type:"dailymenu"}
   options =
     host: "www.netpincer.hu"
     port: 80
     path: "/index.php?#{querystring.stringify(params)}"
+
 
   http.get(options, (res) ->
     buffers = []
