@@ -20,7 +20,6 @@ parser.parse process.ARGV
 
 
 if options.latitude and options.longitude and options.radius
-  console.log "f"
   napimenu(console.log, options.latitude, options.longitude, options.radius)
 
 
